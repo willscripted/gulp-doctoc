@@ -1,0 +1,35 @@
+'use strict';
+
+var through  = require('through2'),
+    doctoc   = require('doctoc/lib/transform'),
+    gutil    = require('gulp-util');
+
+module.exports = function(opts){
+  if(opts == null){opts = {};}
+  var title = opts.title || "";
+
+  var addToc = function (file){
+    var withToc = doctoc(file.contents.toString(), null, null, title);
+    file.contents = new Buffer(withToc.data, 'utf8');
+    return file;
+  };
+
+  return through.obj(function(file, enc, cb){
+    if(file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+    if(file.isStream()) {
+      this.emit('error', new gutil.PluginError('gulp-doctoc', 'Streaming not supported'));
+      return cb();
+    }
+    try {
+      this.push(addToc(file));
+    } catch (e) {
+      console.log(e);
+      this.emit('error', new gutil.PluginError('gulp-doctoc', 'Error adding table of contents', e));
+    }
+    return cb();
+  });
+
+};
