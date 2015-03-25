@@ -38,4 +38,4 @@ Thanks to [@thlorenz](https://github.com/thlorenz) for [doctoc](https://github.c
 License
 --------
 
-MIT (same as [doctoc](https://github.com/thlorenz))
+MIT (same as [doctoc](https://github.com/thlorenz/doctoc))
