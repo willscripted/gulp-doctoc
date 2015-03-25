@@ -47,4 +47,23 @@ it('should allow title change', function (cb) {
   stream.end();
 });
 
+it('should empty files', function (cb) {
 
+  var stream = gdoctoc();
+
+  stream.on('data', function (file) {
+    assert.equal(file.relative, 'empty.md');
+    assert.equal(file.path, 'test/fixture/empty.md');
+    assert.equal(file.contents.toString(), fs.readFileSync('./test/fixture/empty.md', 'utf8'));
+    cb();
+  });
+
+  stream.write(new gutil.File({
+    cwd: 'test',
+    base: 'test/fixture',
+    path: 'test/fixture/empty.md',
+    contents: fs.readFileSync('./test/fixture/empty.md')
+  }));
+
+  stream.end();
+});

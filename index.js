@@ -9,8 +9,9 @@ module.exports = function(opts){
   var title = opts.title || "";
 
   var addToc = function (file){
-    var withToc = doctoc(file.contents.toString(), null, null, title);
-    file.contents = new Buffer(withToc.data, 'utf8');
+    var mdWithToc = doctoc(file.contents.toString(), null, null, title).data;
+    mdWithToc = mdWithToc || file.contents.toString();
+    file.contents = new Buffer(mdWithToc, 'utf8');
     return file;
   };
 
