@@ -30,6 +30,24 @@ gulp.task('markdown', function(){
 
 ```
 
+By default, doctoc puts the TOC at the top of the file. To place it somewhere else, add:
+
+```
+<!-- START doctoc -->
+<!-- END doctoc -->
+```
+
+Custom `title` and `depth` options are also accepted
+
+```
+    // ...
+    .pipe(toc({
+      title: "Table des matières",
+      depth: 3
+    }))
+    // ...
+```
+
 Thanks
 -------
 

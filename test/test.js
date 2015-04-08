@@ -67,3 +67,24 @@ it('should empty files', function (cb) {
 
   stream.end();
 });
+
+it('should allow depth change', function (cb) {
+
+  var stream = gdoctoc({depth: 2});
+
+  stream.on('data', function (file) {
+    assert.equal(file.relative, 'before.md');
+    assert.equal(file.path, 'test/fixture/before.md');
+    assert.equal(file.contents.toString(), fs.readFileSync('./test/fixture/after-w-depth.md', 'utf8'));
+    cb();
+  });
+
+  stream.write(new gutil.File({
+    cwd: 'test',
+    base: 'test/fixture',
+    path: 'test/fixture/before.md',
+    contents: fs.readFileSync('./test/fixture/before.md')
+  }));
+
+  stream.end();
+});

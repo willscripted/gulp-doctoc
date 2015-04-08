@@ -6,10 +6,11 @@ var through  = require('through2'),
 
 module.exports = function(opts){
   if(opts == null){opts = {};}
-  var title = opts.title || "";
+  var title = opts.title || "",
+      depth = opts.depth || 4;
 
   var addToc = function (file){
-    var mdWithToc = doctoc(file.contents.toString(), null, null, title).data;
+    var mdWithToc = doctoc(file.contents.toString('utf8'), null, depth, title).data;
     mdWithToc = mdWithToc || file.contents.toString();
     file.contents = new Buffer(mdWithToc, 'utf8');
     return file;
