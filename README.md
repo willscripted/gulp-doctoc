@@ -37,13 +37,15 @@ By default, doctoc puts the TOC at the top of the file. To place it somewhere el
 <!-- END doctoc -->
 ```
 
-Custom `title` and `depth` options are also accepted
+Custom `title`, `depth`, `mode` and `notitle` options are also accepted
 
 ```
     // ...
     .pipe(toc({
       title: "Table des matières",
-      depth: 3
+      depth: 3,
+      mode: "bitbucket.org",
+      notitle: true
     }))
     // ...
 ```
