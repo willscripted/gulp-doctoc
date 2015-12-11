@@ -7,7 +7,7 @@ var through  = require('through2'),
 module.exports = function(opts){
   if(opts == null){opts = {};}
   var title = opts.title || "",
-      notitle = opts.notitle ? opts.notitle : title ? false : true,
+      notitle = opts.notitle || false,
       depth = opts.depth || 4,
       mode = opts.mode || null;
 
