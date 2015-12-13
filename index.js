@@ -7,10 +7,12 @@ var through  = require('through2'),
 module.exports = function(opts){
   if(opts == null){opts = {};}
   var title = opts.title || "",
-      depth = opts.depth || 4;
+      notitle = opts.notitle || false,
+      depth = opts.depth || 4,
+      mode = opts.mode || null;
 
   var addToc = function (file){
-    var mdWithToc = doctoc(file.contents.toString('utf8'), null, depth, title).data;
+    var mdWithToc = doctoc(file.contents.toString('utf8'), mode, depth, title, notitle).data;
     mdWithToc = mdWithToc || file.contents.toString();
     file.contents = new Buffer(mdWithToc, 'utf8');
     return file;
